@@ -44,8 +44,11 @@ hook() {
   _hook "${HOOK_PREFIX:?}post" "$@"
 
   for f in "${functions_after_hook[@]}"; do
-    if ! _hook_array_contains "$f" "${functions_before_hook[@]}"; then
-      unset -f "$f"
+    if [[ "$f" =~ ^hook_.* ]]; then
+      if ! _hook_array_contains "$f" "${functions_before_hook[@]}"; then
+        echo "unsetting function $f"
+        unset -f "$f"
+      fi
     fi
   done
 
