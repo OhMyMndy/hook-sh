@@ -1,0 +1,8 @@
+services:
+
+  alpine:
+    image: alpine:3.13
+    command: /bin/sh -c "env"
+    environment:
+      PUID: ${PUID:?}
+      PGID: ${PGID:?}
